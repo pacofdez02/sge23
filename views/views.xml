@@ -1,0 +1,116 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="white_clover.list">
+      <field name="name">white_clover list</field>
+      <field name="model">white_clover.white_clover</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+ 
+
+ 
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="white_clover.action_player_window">
+      <field name="name">white_clover player</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="domain"></field>
+            <field name="context">{'default_is_player': True, 'search_default_player_partner': 1}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('white_clover.player_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('white_clover.player_form')}),]" />
+    </record>
+
+     <record model="ir.actions.act_window" id="white_clover.action_grimoire_window">
+      <field name="name">white_clover grimoire</field>
+      <field name="res_model">white_clover.grimoire</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="white_clover.action_grimoire_type_window">
+      <field name="name">white_clover grimoire type</field>
+      <field name="res_model">white_clover.grimoire_type</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="white_clover.action_building_window">
+      <field name="name">white_clover building</field>
+      <field name="res_model">white_clover.building</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="white_clover.action_building_type_window">
+      <field name="name">white_clover building_type</field>
+      <field name="res_model">white_clover.building_type</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="white_clover.action_battle_window">
+      <field name="name">white_clover battle</field>
+      <field name="res_model">white_clover.battle</field>
+      <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+
+
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="white_clover.action_server">
+      <field name="name">white_clover server</field>
+      <field name="model_id" ref="model_white_clover_white_clover"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="white_clover" id="white_clover.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Game" id="white_clover.menu_game" parent="white_clover.menu_root"/>
+
+
+    <!-- actions -->
+
+    <menuitem name="player" id="white_clover.menu_player_list" parent="white_clover.menu_game"
+              action="white_clover.action_player_window"/>
+
+              <menuitem name="grimoires" id="white_clover.menu_grimoire_list" parent="white_clover.menu_game"
+              action="white_clover.action_grimoire_window"/>
+
+              <menuitem name="grimoires types" id="white_clover.menu_grimoire_type_list" parent="white_clover.menu_game"
+              action="white_clover.action_grimoire_type_window"/>
+   
+               <menuitem name="buildings" id="white_clover.menu_building_list" parent="white_clover.menu_game"
+              action="white_clover.action_building_window"/>
+
+               <menuitem name="building types" id="white_clover.menu_building_type_list" parent="white_clover.menu_game"
+              action="white_clover.action_building_type_window"/>
+
+              <menuitem name="battle" id="white_clover.menu_battle_list" parent="white_clover.menu_game"
+              action="white_clover.action_battle_window"/>
+              
+
+  </data>
+</odoo>

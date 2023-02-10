@@ -1,0 +1,119 @@
+<odoo>
+ <data>
+  <record model="ir.ui.view" id="white_clover.building_type_tree">
+  <field name="name">white_clover building type</field>
+  <field name="model">white_clover.building_type</field>
+  <field name="arch" type="xml">
+  <tree>
+    <field name="name"/>
+    <field name="mana_production"/>
+    <field name="gold_production"/>
+    <field name="evolver_production"/>
+  </tree>
+  </field>
+  </record>
+
+
+  <record model="ir.ui.view" id="white_clover.building_type_form">
+  <field name="name">white_clover building type</field>
+  <field name="model">white_clover.building_type</field>
+  <field name="arch" type="xml">
+  <form>
+      <sheet>
+          <group>
+            <group>
+              <field name ="image"  widget ="image"/>
+              <field name="name"/>
+            </group>
+            <group string = "Productions">
+                 <field name="mana_production"/>
+                 <field name="gold_production"/>
+                 <field name="evolver_production"/>
+            </group>
+            <group string = "Costs">
+              <field name="mana_build_cost"/>
+              <field name="gold_build_cost"/>
+              <field name="evolver_build_cost"/>
+          </group>
+
+          </group>
+      </sheet>
+  </form>
+  </field>
+  </record>
+
+
+
+  <record model="ir.ui.view" id="white_clover.building_type_kanban">
+  <field name="name">white_clover building type</field>
+  <field name="model">white_clover.building_type</field>
+  <field name="arch" type="xml">
+  <kanban>
+    <field name = "id"/>
+    <field name="name"/>
+    <field name="mana_production"/>
+    <field name="gold_production"/>
+    <field name="evolver_production"/>
+    <templates>
+      <t t-name="kanban-box">
+      <div t-attf-class="oe_kanban_card o_kanban_record_has_image_fill ">
+                                <div class="o_kanban_image_fill_left o_kanban_image_full d-none d-md-block"
+                                     t-attf-style="background-image:url('#{kanban_image('white_clover.building_type',
+                            'image', record.id.value, placeholder)}')">
+                                </div>
+
+                                <div class="oe_kanban_details d-flex flex-column">
+                                    <a type="open">
+                                        <h4 class="o_kanban_record_title oe_partner_heading">
+                                            <field name="name"/>
+                                        </h4>
+                                    </a>
+                                    <ul>
+                                        <li attrs="{'invisible': [('mana_production', '=', 0)]}">
+                                            <li>Mana Production:
+                                            <field name="mana_production"/>
+                                            </li>
+                                        </li>
+                                        <li attrs="{'invisible': [('gold_production', '=', 0)]}">
+                                            <li>Gold Production:
+                                            <field name="gold_production"/>
+                                            </li>
+                                        </li>
+
+                                        <li attrs="{'invisible': [('evolver_production', '=', 0)]}">
+                                            <li>Evolver Production:
+                                            <field name="evolver_production"/>
+                                            </li>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+      </t>
+    </templates>
+  </kanban>
+  </field>
+  </record>
+
+<record model="ir.ui.view" id="white_clover.building_type_search">
+  <field name="name">white_clover building type</field>
+  <field name="model">white_clover.building_type</field>
+  <field name="arch" type="xml">
+  <search>
+    <field name="name"/>
+    <field name="mana_production"/>
+    <field name="gold_production"/>
+    <field name="evolver_production"/>
+
+    <filter name="mana_productor" string="Mana productor" domain="[('mana_production','>',0)]"/>
+    <filter name="gold_productor" string="Gold productor" domain="[('gold_production','>',0)]"/>
+    <filter name="evolver_productor" string="evolver productor" domain="[('evolver_production','>',0)]"/>
+
+  </search>
+  </field>
+  </record>
+
+
+
+    </data>
+</odoo>

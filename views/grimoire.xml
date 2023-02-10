@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="white_clover.grimoire_tree">
+        <field name="name">white_clover grimoire</field>
+        <field name="model">white_clover.grimoire</field>
+        <field name="arch" type="xml">
+  <tree>
+    <field name = "name"/>
+    <field name = "level"/>
+    <field name = "grimoire_type"/>
+    <field name = "player"/>
+
+
+  </tree>
+  </field>
+  </record>
+
+
+  <record model="ir.ui.view" id="white_clover.grimoire_form">
+  <field name="name">white_clover grimoire</field>
+  <field name="model">white_clover.grimoire</field>
+  <field name="arch" type="xml">
+  <form>
+      <sheet>
+          <group>
+          <group>
+              <field name="name"/>
+              <field name="level" widget="progressbar"/>
+              <field name ="image"  widget ="image"/>
+
+            </group>
+
+            <group>
+                <field name="grimoire_type"/>
+                <field name ="grimoire_type_write" invisible = "True"/>
+                <field name="hp"/>
+                <field name="attack"/>
+                <field name="defense"/>
+                <field name="speed"/>
+            </group>
+
+        
+          </group>
+      </sheet>
+  </form>
+  </field>
+  </record>
+
+
+
+<record model="ir.ui.view" id="white_clover.grimoire_kanban">
+  <field name="name">white_clover grimoire</field>
+  <field name="model">white_clover.grimoire</field>
+  <field name="arch" type="xml">
+  <kanban>
+    <field name = "id"/>
+    <field name = "name"/>
+    <field name ="image"  widget ="image"/>
+    <field name = "level"/>
+    <field name = "grimoire_type"/>
+    <field name = "player"/>
+    <templates>
+      <t t-name="kanban-box">
+      <div t-attf-class="oe_kanban_card o_kanban_record_has_image_fill ">
+                                <div class="o_kanban_image_fill_left o_kanban_image_full d-none d-md-block"
+                                     t-attf-style="background-image:url('#{kanban_image('white_clover.grimoire',
+                            'image', record.id.value, placeholder)}')">
+                                </div>
+
+                                <div class="oe_kanban_details d-flex flex-column">
+                                    <a type="open">
+                                        <h4 class="o_kanban_record_title oe_partner_heading">
+                                            <field name="name"/>
+                                        </h4>
+                                    </a>
+                                    
+                                </div>
+                            </div>
+      </t>
+    </templates>
+  </kanban>
+  </field>
+  </record>
+
+    </data>
+</odoo>
