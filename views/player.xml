@@ -2,6 +2,58 @@
 
   
     <data>
+
+<!-- WIZARD player-->
+        <record model="ir.ui.view" id="white_clover.player_wizard_view">
+            <field name="name">white_clover.player.wizard</field>
+            <field name="model">white_clover.player_wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                <header>
+                    <button name="back" type="object" string="Back" class="btn btn-secondary" states="2,3"/>
+                    <button name="next" type="object" string="Forward" class="btn oe_highlight" states="1,2"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group states="1,2,3">
+                        <field name="name" attrs="{'readonly':[('state','!=','1')]}"/>
+                        <field name="password" attrs="{'readonly':[('state','!=','1')]}"/>
+
+                    </group>
+
+                    <group states = "1">
+                      <field name="image"/>
+
+                    </group>
+
+                    <group states="2">          
+                        <group>
+                            <field name="grimoires"/>
+                        </group>
+
+                    </group>
+
+            
+
+                </sheet>
+                <footer>
+                    <button name="create_player_wizard" type="object" string="Create" class="oe_highlight" states = "3"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+                
+                </form>
+            </field>
+        </record>
+
+        <record id="white_clover.player_wizard_action" model="ir.actions.act_window">
+        <field name="name">Crear player</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">white_clover.player_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        </record>
+
+
      <record model="ir.ui.view" id="white_clover.player_tree">
      <field name="name">white_clover player</field>
      <field name="model">res.partner</field>
@@ -41,8 +93,9 @@
              <field name ="mana_production"/>
              <field name ="gold_production"/>
              <field name ="evolver_production"/>
+             <button name="%(white_clover.building_wizard_action)d" type="action" string="Create Building" class="oe_highlight"/>
+              <button name="%(white_clover.player_wizard_action)d" type="action" string="Create Player" class="oe_highlight"/>
 
-             
 
              </group>
              <notebook>

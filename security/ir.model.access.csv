@@ -5,4 +5,6 @@ access_white_clover_building,white_clover.building,model_white_clover_building,b
 access_white_clover_building_type,white_clover.building_type,model_white_clover_building_type,base.group_user,1,1,1,1
 access_white_clover_battle,white_clover.battle,model_white_clover_battle,base.group_user,1,1,1,1
 access_white_clover_battle_grimoire_rel,white_clover.battle_grimoire_rel,model_white_clover_battle_grimoire_rel,base.group_user,1,1,1,1
+access_white_clover_building_wizard,white_clover.building_wizard,model_white_clover_building_wizard,base.group_user,1,1,1,1
+access_white_clover_player_wizard,white_clover.player_wizard,model_white_clover_player_wizard,base.group_user,1,1,1,1
 

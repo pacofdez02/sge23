@@ -331,6 +331,13 @@ class grimoire(models.Model):
             attack = random.betavariate(1.5,1.5)*10
             defense = random.betavariate(1.5,1.5)*10
             speed = random.betavariate(1.5,1.5)*10
+            self.write({
+                    "grimoire_type_write":self.grimoire_type.id,
+                    "image":image,
+                    "hp":hp,
+                    "attack":attack,
+                    "defense":defense,
+                    "speed": speed})
 
         if self.grimoire_type.name == "Red grimoire":
             image = self.grimoire_type.image
@@ -338,6 +345,13 @@ class grimoire(models.Model):
             hp = random.betavariate(1.5,1.5)*10
             defense = random.betavariate(1.5,1.5)*10
             speed = random.betavariate(1.5,1.5)*10
+            self.write({
+                    "grimoire_type_write":self.grimoire_type.id,
+                    "image":image,
+                    "hp":hp,
+                    "attack":attack,
+                    "defense":defense,
+                    "speed": speed})
 
         if self.grimoire_type.name == "Blue grimoire":
             image = self.grimoire_type.image
@@ -345,6 +359,13 @@ class grimoire(models.Model):
             attack = random.betavariate(1.5,1.5)*10
             hp = random.betavariate(1.5,1.5)*10
             speed = random.betavariate(1.5,1.5)*10
+            self.write({
+                    "grimoire_type_write":self.grimoire_type.id,
+                    "image":image,
+                    "hp":hp,
+                    "attack":attack,
+                    "defense":defense,
+                    "speed": speed})
 
         if self.grimoire_type.name == "Green grimoire":
             image = self.grimoire_type.image
@@ -352,17 +373,18 @@ class grimoire(models.Model):
             attack = random.betavariate(1.5,1.5)*10
             defense = random.betavariate(1.5,1.5)*10
             hp = random.betavariate(1.5,1.5)*10
-       #hacer que si speed de player1 duplica a la de player2 ataca 2 veces 
-       
-       
-            
-        self.write({
+            self.write({
                     "grimoire_type_write":self.grimoire_type.id,
                     "image":image,
                     "hp":hp,
                     "attack":attack,
                     "defense":defense,
                     "speed": speed})
+       #hacer que si speed de player1 duplica a la de player2 ataca 2 veces 
+       
+       
+            
+        
 
 
     #check_xp = fields.Integer()
@@ -560,12 +582,83 @@ class battle_grimoire_rel(models.Model):
     qty = fields.Integer()
 
 
-
+class building_wizard(models.TransientModel):
+    _name='white_clover.building_wizard'
+    _description='Wizard pequeño para edificio'
+    
+    def get_default_building(self):
+        return self.env['res.partner'].browse(self._context.get('active_id'))
+    
+    player = fields.Many2one('res.partner', default = get_default_building, required = True)
+    building_type = fields.Many2one('white_clover.building_type')
+    
+    def create_building_wizard(self):
+        self.ensure_one()
+        if self.player.gold >= self.building_type.gold_build_cost:
+            self.env['white_clover.building'].create({
+                "player":self.player.id,
+                "building_type":self.building_type.id
+            })
+        self.player.gold -= 50
+        
+        
+        
 class player_wizard(models.TransientModel):
-    _name = 'white_clover.player_wizard'
-    _description = 'Wizard per crear players'
-
-    #meterlo en el security
-    name = fields.Many2one('res.partner')
-    password = fields.Char()
+    _name='white_clover.player_wizard'
+    _description='Wizard grande para players'
+    
     image = fields.Image(max_width = 200, max_height = 200)
+    name = fields.Char(string = "Name", required = True)
+    password = fields.Char()
+    state = fields.Selection([('1','Player'),('2','Grimoire'),('3','Create')],default='1')
+    grimoires = fields.Many2many('white_clover.grimoire', 'player')
+    
+    
+    def next(self):
+        if self.state == '1':
+            self.state = '2'
+        elif self.state == '2':
+            self.state = '3'
+ 
+
+        return {
+            'type':'ir.actions.act_window',
+            'res_model':self._name,
+            'res_id':self.id,
+            'view_mode':'form',
+            'target':'new', 
+        }
+
+    def back(self):
+        if self.state == '2':
+            self.state = '1'
+        elif self.state == '3':
+            self.state = '2'
+
+
+        return {
+            'type':'ir.actions.act_window',
+            'res_model':self._name,
+            'res_id':self.id,
+            'view_mode':'form',
+            'target':'new', 
+        }
+    
+    
+    
+    
+    def create_player_wizard(self):
+        for i in self:
+            grimoiresArr = []
+        
+        
+        p = i.env['res.partner'].create({'name':i.name,'password':i.password, 'image':i.image,'grimoires':i.grimoires,'is_player':True})
+
+
+        return {
+            'type':'ir.actions.act_window',
+            'res_model':'res.partner',
+            'res_id':p.id,
+            'view_mode':'form',
+            'target':'current',
+        }

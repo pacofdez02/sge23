@@ -1,5 +1,32 @@
 <odoo>
     <data>
+    <record model="ir.ui.view" id="white_clover.building_wizard_view">
+            <field name="name">white_clover.building.wizard</field>
+            <field name="model">white_clover.building_wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                <group>
+                    <field name="player"/>
+                    <field name="building_type"/>
+                </group>
+
+                <footer>
+                    <button name="create_building_wizard" type="object" string="Create" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+    <record id="white_clover.building_wizard_action" model="ir.actions.act_window">
+        <field name="name">Crear building</field>
+        <field name="res_model">white_clover.building_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        </record>
+
+
         <record model="ir.ui.view" id="white_clover.building_tree">
         <field name="name">white_clover building</field>
         <field name="model">white_clover.building</field>
