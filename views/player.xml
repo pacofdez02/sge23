@@ -3,7 +3,6 @@
   
     <data>
 
-<!-- WIZARD player-->
         <record model="ir.ui.view" id="white_clover.player_wizard_view">
             <field name="name">white_clover.player.wizard</field>
             <field name="model">white_clover.player_wizard</field>
